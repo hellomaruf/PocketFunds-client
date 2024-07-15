@@ -15,7 +15,7 @@ function Login() {
             <img src={loginimg} alt="" />
           </div>
           <h2 className="text-3xl mt-6 text-white font-semibold text-center pb-2">
-            Welcome to PocketFunds
+            Welcome to PocketFunds hello
           </h2>
           <p className="text-center text-gray-200 max-w-xl mx-auto">
             Proactively utilize standardized users with focused growth
