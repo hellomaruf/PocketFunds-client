@@ -2,11 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 import loginimg from "../assets/loginImg.png";
 import { PinInput } from "react-input-pin-code";
+import axios from "axios";
 
 function Login() {
-  const handleLogin = () => {};
   const [values, setValues] = React.useState(["", "", "", ""]);
-  console.log(values);
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const pin = values;
+    const loginInfo = {
+      email,
+      pin,
+    };
+    console.log(loginInfo);
+    await axios
+      .post("http://localhost:3000/loginUser", loginInfo)
+      .then((res) => console.log(res.data))
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div>
       <div className="grid grid-cols-2 items-center h-screen ">
@@ -90,7 +106,6 @@ function Login() {
               </div>
             </div>
           </div>
-          <div></div>
         </div>
       </div>
     </div>

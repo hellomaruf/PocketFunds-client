@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginimg from "../assets/loginImg.png";
 import { PinInput } from "react-input-pin-code";
 import axios from "axios";
-// import bcrypt from "bcrypt";
 
 function Register() {
+  const navigate = useNavigate();
   const [values, setValues] = React.useState(["", "", "", ""]);
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -15,7 +15,6 @@ function Register() {
     const password = e.target.password.value;
     const roleRequest = selectedOption;
     const combinedValue = values.join("");
-    // console.log(combinedValue);
     const userInfo = {
       name,
       phoneNum,
@@ -23,19 +22,22 @@ function Register() {
       password,
       pin: combinedValue,
       roleRequest,
+      status: "pending",
     };
     console.log(userInfo);
     await axios
       .post("http://localhost:3000/users", userInfo)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        if (res.data) {
+          navigate("/");
+        }
+      })
       .catch((error) => {
         console.log(error);
       });
   };
 
   const [selectedOption, setSelectedOption] = useState("");
-  console.log(selectedOption);
-
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
