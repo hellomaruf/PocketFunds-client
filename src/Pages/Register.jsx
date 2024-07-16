@@ -27,7 +27,7 @@ function Register() {
     console.log(userInfo);
     await axios
       .post("http://localhost:3000/users", userInfo)
-      .then((res) => res.data)
+      .then((res) => console.log(res.data))
       .catch((error) => {
         console.log(error);
       });

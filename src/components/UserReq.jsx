@@ -5,7 +5,7 @@ function UserReq() {
   let count = 1
   const [userData, setUserData] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:3000/reqUser/agent").then((res) => {
+    axios.get("http://localhost:3000/reqUser/user").then((res) => {
       setUserData(res.data);
     });
   }, []);
