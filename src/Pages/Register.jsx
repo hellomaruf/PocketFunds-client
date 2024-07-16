@@ -1,12 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import loginimg from "../assets/loginImg.png";
 import { PinInput } from "react-input-pin-code";
+import axios from "axios";
+// import bcrypt from "bcrypt";
 
 function Register() {
-  const handleLogin = () => {};
   const [values, setValues] = React.useState(["", "", "", ""]);
-  console.log(values);
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    const name = e.target.name.value;
+    const phoneNum = e.target.number.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const roleRequest = selectedOption;
+    const combinedValue = values.join("");
+    // console.log(combinedValue);
+    const userInfo = {
+      name,
+      phoneNum,
+      email,
+      password,
+      pin: combinedValue,
+      roleRequest,
+    };
+    console.log(userInfo);
+    await axios
+      .post("http://localhost:3000/users", userInfo)
+      .then((res) => res.data)
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const [selectedOption, setSelectedOption] = useState("");
+  console.log(selectedOption);
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
   return (
     <div>
       <div className="grid grid-cols-2 items-center h-screen ">
@@ -15,7 +48,7 @@ function Register() {
             <img src={loginimg} alt="" />
           </div>
           <h2 className="text-3xl mt-6 text-white font-semibold text-center pb-2">
-           Welcome to PocketFunds
+            Welcome to PocketFunds
           </h2>
           <p className="text-center text-gray-200 max-w-xl mx-auto">
             Proactively utilize standardized users with focused growth
@@ -23,14 +56,14 @@ function Register() {
           </p>
         </div>
         <div className=" relative">
-          <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-screen-xl px-4  sm:px-6 lg:px-8">
             <div className="mx-auto max-w-lg">
               <div className=" bg-gray-50 rounded-3xl shadow-lg">
                 {/* <p className='text-sm pt-2 pl-4'>If you have not registered then click on sign up button</p> */}
                 <form
-                  onSubmit={handleLogin}
+                  onSubmit={handleRegister}
                   action="#"
-                  className="mb-0 mt-6 space-y-4 rounded-3xl p-4 bg-white  sm:p-6 lg:p-8"
+                  className="mb-0  space-y-4 rounded-3xl p-4 bg-white  sm:p-6 lg:p-8"
                 >
                   <p className="text-center text-lg font-medium">
                     Register to your account
@@ -133,10 +166,45 @@ function Register() {
                       </span>
                     </div>
                   </div>
-                  <PinInput
-                    values={values}
-                    onChange={(value, index, values) => setValues(values)}
-                  />
+
+                  <div className=" flex items-center gap-4">
+                    <div>
+                      <input
+                        type="radio"
+                        id="user"
+                        name="options"
+                        value="user"
+                        checked={selectedOption === "user"}
+                        onChange={handleOptionChange}
+                        className="form-radio h-5 w-5 text-[#294484]"
+                      />
+                      <label htmlFor="option1" className="ml-2 text-gray-700">
+                        User
+                      </label>
+                    </div>
+                    <div>
+                      <input
+                        type="radio"
+                        id="agent"
+                        name="options"
+                        value="agent"
+                        checked={selectedOption === "agent"}
+                        onChange={handleOptionChange}
+                        className="form-radio h-5 w-5 text-[#294484]"
+                      />
+                      <label htmlFor="option2" className="ml-2 text-gray-700">
+                        Agent
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="">
+                    <h2 className="text-sm pb-2">Enter PIN</h2>
+                    <PinInput
+                      values={values}
+                      onChange={(value, index, values) => setValues(values)}
+                    />
+                  </div>
                   <button
                     type="submit"
                     className="block w-full rounded-lg bg-[#2A468A] text-white px-5 py-3 text-sm font-medium "
@@ -153,7 +221,6 @@ function Register() {
               </div>
             </div>
           </div>
-          <div></div>
         </div>
       </div>
     </div>
