@@ -43,7 +43,7 @@ function Register() {
   return (
     <div>
       <div className="grid grid-cols-2 items-center h-screen ">
-        <div className="bg-gradient-to-r from-[#2A468A] h-full to-[#233863] rounded-r-[40px]  flex flex-col items-center justify-center">
+        <div className="bg-gradient-to-r from-[#099718] to-[#03550b] h-full  rounded-r-[40px]  flex flex-col items-center justify-center">
           <div className=" max-w-2xl mx-auto">
             <img src={loginimg} alt="" />
           </div>
@@ -78,7 +78,7 @@ function Register() {
                       <input
                         type="text"
                         name="name"
-                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none bg-gray-50 outline  focus:outline-[#2A4589]"
+                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none bg-gray-50 outline  focus:outline-[#099718]"
                         placeholder="Enter Full Name"
                       />
                     </div>
@@ -92,7 +92,7 @@ function Register() {
                       <input
                         type="number"
                         name="number"
-                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none bg-gray-50 outline  focus:outline-[#2A4589]"
+                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none bg-gray-50 outline  focus:outline-[#099718]"
                         placeholder="Enter Phone Number"
                       />
                     </div>
@@ -106,7 +106,7 @@ function Register() {
                       <input
                         type="email"
                         name="email"
-                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none bg-gray-50 outline  focus:outline-[#2A4589]"
+                        className="w-full rounded-lg border border-gray-200 p-4 pe-12 text-sm shadow-sm outline-none bg-gray-50 outline  focus:outline-[#099718]"
                         placeholder="Enter email"
                       />
 
@@ -176,7 +176,7 @@ function Register() {
                         value="user"
                         checked={selectedOption === "user"}
                         onChange={handleOptionChange}
-                        className="form-radio h-5 w-5 text-[#294484]"
+                        className="form-radio h-5 w-5 text-[#099718]"
                       />
                       <label htmlFor="option1" className="ml-2 text-gray-700">
                         User
@@ -190,7 +190,7 @@ function Register() {
                         value="agent"
                         checked={selectedOption === "agent"}
                         onChange={handleOptionChange}
-                        className="form-radio h-5 w-5 text-[#294484]"
+                        className="form-radio h-5 w-5 text-[#099718]"
                       />
                       <label htmlFor="option2" className="ml-2 text-gray-700">
                         Agent
@@ -207,13 +207,13 @@ function Register() {
                   </div>
                   <button
                     type="submit"
-                    className="block w-full rounded-lg bg-[#2A468A] text-white px-5 py-3 text-sm font-medium "
+                    className="block w-full rounded-lg bg-[#099718] text-white px-5 py-3 text-sm font-medium "
                   >
                     Register
                   </button>
                   <div className="">
                     Are you already registered?{" "}
-                    <Link className="font-bold text-[#2A4589]" to={"/"}>
+                    <Link className="font-bold text-[#099718]" to={"/"}>
                       Login
                     </Link>
                   </div>
