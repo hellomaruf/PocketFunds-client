@@ -4,7 +4,7 @@ import { LuMenu } from "react-icons/lu";
 function Sidebar() {
   return (
     <div>
-      <div className="drawer">
+      <div className="drawer z-10">
         <input id="my-drawer" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content py-3 mx-6">
           <div className=" flex gap-2">
