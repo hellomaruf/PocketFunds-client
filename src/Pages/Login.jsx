@@ -1,10 +1,12 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginimg from "../assets/loginImg.png";
 import { PinInput } from "react-input-pin-code";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function Login() {
+  const navigate = useNavigate();
   const [values, setValues] = React.useState(["", "", "", ""]);
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -18,7 +20,22 @@ function Login() {
     console.log(loginInfo);
     await axios
       .post("http://localhost:3000/loginUser", loginInfo)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        if (res.data?.message === "Wait for admin approval!") {
+          toast(res.data?.message, {
+            icon: "⚠️",
+          });
+        }
+        if (res.data?.message === "Login Successfully!") {
+          toast(res.data?.message, {
+            icon: "✅",
+          });
+          navigate("/home");
+        }
+        if (res.data?.message === "Invalid Pin") {
+          toast.error(res.data?.message);
+        }
+      })
       .catch((error) => {
         console.log(error);
       });
