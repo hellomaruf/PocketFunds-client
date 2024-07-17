@@ -3,15 +3,19 @@ import cashIn from "../../assets/cashIn.png";
 import cashOut from "../../assets/cashOut.png";
 import sendMoney from "../../assets/send.png";
 import SendMoneyModal from "./Modal/sendMoneyModal";
+import useCurrentUser from "../../Hooks/useCurrentUser";
 
 function Dashboard() {
-  let [isOpen, setIsOpen] = useState(false)
+  let [isOpen, setIsOpen] = useState(false);
+  const { user } = useCurrentUser();
 
+  console.log(user);
+  const balance = user?.balance;
   function open() {
-    setIsOpen(true)
+    setIsOpen(true);
   }
   function close() {
-    setIsOpen(false)
+    setIsOpen(false);
   }
 
   return (
@@ -22,7 +26,10 @@ function Dashboard() {
             <div className="mx-auto max-w-screen-xl py-6 px-3">
               <div className=" ">
                 <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div onClick={open} className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-3 px-4 py-8 text-center">
+                  <div
+                    onClick={open}
+                    className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-3 px-4 py-8 text-center"
+                  >
                     <dt className="order-last font-medium text-gray-500 mt-2 text-xl">
                       Send Money
                     </dt>
@@ -68,13 +75,15 @@ function Dashboard() {
                 24/365 portals via resource maximizing markets. Competently.
               </p>
             </div>
-            <div className="p-4">
-              <h2 className="text-4xl font-bold text-white">200 TK</h2>
+            <div className="p-4 flex flex-wrap">
+              <h2 className="text-4xl font-bold text-white">
+                {parseInt(balance)} TK
+              </h2>
             </div>
           </div>
         </div>
       </div>
-      <SendMoneyModal open={open} close={ close} isOpen={isOpen} />
+      <SendMoneyModal open={open} close={close} isOpen={isOpen} />
     </div>
   );
 }

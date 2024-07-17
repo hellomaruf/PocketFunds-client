@@ -30,6 +30,7 @@ function Login() {
           toast(res.data?.message, {
             icon: "✅",
           });
+          localStorage.setItem("userEmail", email);
           navigate("/home");
         }
         if (res.data?.message === "Invalid Pin") {
