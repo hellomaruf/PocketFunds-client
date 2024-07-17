@@ -1,8 +1,19 @@
+import { useState } from "react";
 import cashIn from "../../assets/cashIn.png";
 import cashOut from "../../assets/cashOut.png";
 import sendMoney from "../../assets/send.png";
+import SendMoneyModal from "./Modal/sendMoneyModal";
 
 function Dashboard() {
+  let [isOpen, setIsOpen] = useState(false)
+
+  function open() {
+    setIsOpen(true)
+  }
+  function close() {
+    setIsOpen(false)
+  }
+
   return (
     <div className="max-w-[1480px] mx-auto">
       <div className="grid grid-cols-8 gap-4">
@@ -11,7 +22,7 @@ function Dashboard() {
             <div className="mx-auto max-w-screen-xl py-6 px-3">
               <div className=" ">
                 <dl className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                  <div className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-3 px-4 py-8 text-center">
+                  <div onClick={open} className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-3 px-4 py-8 text-center">
                     <dt className="order-last font-medium text-gray-500 mt-2 text-xl">
                       Send Money
                     </dt>
@@ -63,6 +74,7 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      <SendMoneyModal open={open} close={ close} isOpen={isOpen} />
     </div>
   );
 }
