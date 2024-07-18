@@ -5,12 +5,16 @@ import sendMoney from "../../assets/send.png";
 import SendMoneyModal from "./Modal/sendMoneyModal";
 import useCurrentUser from "../../Hooks/useCurrentUser";
 import CashOutModal from "./Modal/CashOutModal";
+import CashInModal from "./Modal/CashInModal";
 
 function Dashboard() {
-  let [isOpen, setIsOpen] = useState(false);
-  let [isOpenForCashOut, setIsOpenCashOut] = useState(false);
   const { user } = useCurrentUser();
   const balance = user?.balance;
+  let [isOpen, setIsOpen] = useState(false);
+  let [isOpenForCashOut, setIsOpenCashOut] = useState(false);
+  let [isOpenForCashIn, setIsOpenCashIn] = useState(false);
+
+  // cash out modal func
   function openForCashout() {
     setIsOpenCashOut(true);
   }
@@ -18,6 +22,15 @@ function Dashboard() {
     setIsOpenCashOut(false);
   }
 
+  // cash out modal func
+  function openForCashIn() {
+    setIsOpenCashIn(true);
+  }
+  function closeForCashIn() {
+    setIsOpenCashIn(false);
+  }
+
+  // send money modal func
   function open() {
     setIsOpen(true);
   }
@@ -55,7 +68,7 @@ function Dashboard() {
                     <img className="w-28 mx-auto" src={cashOut} alt="" />
                   </div>
 
-                  <div className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 px-4 py-8 text-center">
+                  <div onClick={openForCashIn} className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 px-4 py-8 text-center">
                     <dt className="order-last  font-medium text-gray-500 mt-2 text-xl">
                       Cash In
                     </dt>
@@ -97,6 +110,11 @@ function Dashboard() {
         openForCashout={openForCashout}
         closeForCashout={closeForCashout}
         isOpenForCashOut={isOpenForCashOut}
+      />
+      <CashInModal
+        openForCashIn={openForCashIn}
+        closeForCashIn={closeForCashIn}
+        isOpenForCashIn={isOpenForCashIn}
       />
     </div>
   );
