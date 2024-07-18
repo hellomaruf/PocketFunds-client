@@ -4,13 +4,20 @@ import cashOut from "../../assets/cashOut.png";
 import sendMoney from "../../assets/send.png";
 import SendMoneyModal from "./Modal/sendMoneyModal";
 import useCurrentUser from "../../Hooks/useCurrentUser";
+import CashOutModal from "./Modal/CashOutModal";
 
 function Dashboard() {
   let [isOpen, setIsOpen] = useState(false);
+  let [isOpenForCashOut, setIsOpenCashOut] = useState(false);
   const { user } = useCurrentUser();
-
-  console.log(user);
   const balance = user?.balance;
+  function openForCashout() {
+    setIsOpenCashOut(true);
+  }
+  function closeForCashout() {
+    setIsOpenCashOut(false);
+  }
+
   function open() {
     setIsOpen(true);
   }
@@ -37,20 +44,22 @@ function Dashboard() {
                     <img className="w-28 mx-auto" src={sendMoney} alt="" />
                   </div>
 
-                  <div className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-3 px-4 py-8 text-center">
-                    <dt className="order-last  font-medium text-gray-500 mt-2 text-xl">
-                      Cash In
-                    </dt>
-
-                    <img className="w-28 mx-auto" src={cashIn} alt="" />
-                  </div>
-
-                  <div className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 px-4 py-8 text-center">
+                  <div
+                    onClick={openForCashout}
+                    className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-3 px-4 py-8 text-center"
+                  >
                     <dt className="order-last  font-medium text-gray-500 mt-2 text-xl">
                       Cash Out
                     </dt>
 
                     <img className="w-28 mx-auto" src={cashOut} alt="" />
+                  </div>
+
+                  <div className="flex flex-col rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-300 px-4 py-8 text-center">
+                    <dt className="order-last  font-medium text-gray-500 mt-2 text-xl">
+                      Cash In
+                    </dt>
+                    <img className="w-28 mx-auto" src={cashIn} alt="" />
                   </div>
                 </dl>
               </div>
@@ -84,6 +93,11 @@ function Dashboard() {
         </div>
       </div>
       <SendMoneyModal open={open} close={close} isOpen={isOpen} />
+      <CashOutModal
+        openForCashout={openForCashout}
+        closeForCashout={closeForCashout}
+        isOpenForCashOut={isOpenForCashOut}
+      />
     </div>
   );
 }
