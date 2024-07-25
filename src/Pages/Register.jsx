@@ -15,6 +15,8 @@ function Register() {
     const password = e.target.password.value;
     const roleRequest = selectedOption;
     const combinedValue = values.join("");
+    const role = "requested";
+    const balance = 0;
     const userInfo = {
       name,
       phoneNum,
@@ -23,6 +25,8 @@ function Register() {
       pin: combinedValue,
       roleRequest,
       status: "pending",
+      role,
+      balance,
     };
     console.log(userInfo);
     await axios

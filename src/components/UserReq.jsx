@@ -1,17 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-import { useEffect, useState } from "react";
 
 function UserReq() {
-  let count = 1
-  const [userData, setUserData] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:3000/reqUser/user").then((res) => {
-      setUserData(res.data);
-    });
-  }, []);
-
-  console.log(userData);
-
+  let count = 1;
+  const { data: userData } = useQuery({
+    queryKey: ["userReq"],
+    queryFn: async () => {
+      const { data } = await axios.get("http://localhost:3000/reqUser/user");
+      return data;
+    },
+  });
+  const handleUser = (id) => {
+    console.log(id);
+  };
   return (
     <div className="-z-0">
       <div className="overflow-x-auto mx-5">
@@ -30,15 +31,26 @@ function UserReq() {
           <tbody>
             {userData?.map((user, index) => (
               <tr key={index}>
-                <th>{ count++}</th>
+                <th>{count++}</th>
                 <td>{user?.name}</td>
                 <td>{user?.email}</td>
                 <td>{user?.phoneNum}</td>
                 <td>
-                  <div className="badge badge-warning">{user?.status}</div>
+                  <div
+                    className={
+                      user?.status === "accepted"
+                        ? "badge badge-accent"
+                        : "badge badge-warning"
+                    }
+                  >
+                    {user?.status}
+                  </div>
                 </td>
                 <td>
-                  <div className="btn btn-sm bg-[#099718] text-white rounded-full hover:bg-[#077012]">
+                  <div
+                    onClick={() => handleUser(user?._id)}
+                    className="btn btn-sm bg-[#099718] text-white rounded-full hover:bg-[#077012]"
+                  >
                     Make User
                   </div>
                 </td>

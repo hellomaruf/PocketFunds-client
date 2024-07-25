@@ -30,7 +30,7 @@ function CashInModal({ closeForCashIn, isOpenForCashIn }) {
     };
 
     await axios
-      .patch("http://localhost:3000/sendMoney", cashInInfo)
+      .patch("http://localhost:3000/cashIn", cashInInfo)
       .then((res) => {
         console.log(res.data);
         if (res.data.message === "Send money Successfully!") {
