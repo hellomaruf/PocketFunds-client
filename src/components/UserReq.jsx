@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function UserReq() {
   let count = 1;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredUser, setFilteredUser] = useState([]);
   const { data: userData, refetch } = useQuery({
     queryKey: ["userReq"],
     queryFn: async () => {
@@ -11,6 +14,7 @@ function UserReq() {
       return data;
     },
   });
+  console.log(userData);
   const handleUser = (id) => {
     axios
       .patch(`http://localhost:3000/userReq/${id}`)
@@ -26,8 +30,27 @@ function UserReq() {
         refetch;
       });
   };
+
+  const handleSearch = (e) => {
+    console.log(e.target.value);
+    setSearchQuery(e.target.value);
+  };
+
+  useEffect(() => {
+    const result = userData?.filter((user) =>
+      user?.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredUser(result);
+  }, [searchQuery, userData]);
   return (
     <div className="-z-0">
+      <input
+        type="text"
+        name="search"
+        placeholder="Search User By Name...."
+        className="input input-bordered w-full max-w-xs my-4 mx-6"
+        onChange={handleSearch}
+      />
       <div className="overflow-x-auto mx-5">
         <table className="table">
           {/* head */}
@@ -42,7 +65,7 @@ function UserReq() {
             </tr>
           </thead>
           <tbody>
-            {userData?.map((user, index) => (
+            {filteredUser?.map((user, index) => (
               <tr key={index}>
                 <th>{count++}</th>
                 <td>{user?.name}</td>

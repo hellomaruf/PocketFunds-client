@@ -12,7 +12,9 @@ function useCurrentUser() {
       return data;
     },
   });
-  return { user };
+  console.log(user);
+  const role = user?.role
+  return { user, role };
 }
 
 export default useCurrentUser;

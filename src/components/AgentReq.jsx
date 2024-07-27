@@ -34,6 +34,11 @@ function AgentReq() {
 
   return (
     <div className="-z-0">
+        <input
+        type="text"
+        placeholder="Search Agent By Name...."
+        className="input input-bordered w-full max-w-xs my-4 mx-6"
+      />
       <div className="overflow-x-auto mx-5">
         <table className="table">
           {/* head */}
