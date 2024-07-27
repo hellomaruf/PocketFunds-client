@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function UserReq() {
   let count = 1;
-  const { data: userData } = useQuery({
+  const { data: userData, refetch } = useQuery({
     queryKey: ["userReq"],
     queryFn: async () => {
       const { data } = await axios.get("http://localhost:3000/reqUser/user");
@@ -11,7 +12,19 @@ function UserReq() {
     },
   });
   const handleUser = (id) => {
-    console.log(id);
+    axios
+      .patch(`http://localhost:3000/userReq/${id}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data) {
+          toast.success("Successfull");
+          refetch;
+        }
+      })
+      .catch((error) => {
+        console.log(error.message);
+        refetch;
+      });
   };
   return (
     <div className="-z-0">
