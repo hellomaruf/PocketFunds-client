@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 function AgentReq() {
   let count = 1;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filteredUser, setFilteredUser] = useState([]);
   const { refetch, data: userData } = useQuery({
     queryKey: ["agentReq"],
     queryFn: async () => {
@@ -32,12 +35,24 @@ function AgentReq() {
       });
   };
 
+  const handleAgentSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+  console.log(searchQuery);
+
+  useEffect(() => {
+    const result = userData?.filter((user) =>
+      user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredUser(result);
+  }, [searchQuery, userData]);
   return (
     <div className="-z-0">
-        <input
+      <input
         type="text"
         placeholder="Search Agent By Name...."
         className="input input-bordered w-full max-w-xs my-4 mx-6"
+        onChange={handleAgentSearch}
       />
       <div className="overflow-x-auto mx-5">
         <table className="table">
@@ -53,7 +68,7 @@ function AgentReq() {
             </tr>
           </thead>
           <tbody>
-            {userData?.map((user, index) => (
+            {filteredUser?.map((user, index) => (
               <tr key={index}>
                 <th>{count++}</th>
                 <td>{user?.name}</td>

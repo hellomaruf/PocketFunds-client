@@ -32,7 +32,6 @@ function UserReq() {
   };
 
   const handleSearch = (e) => {
-    console.log(e.target.value);
     setSearchQuery(e.target.value);
   };
 
